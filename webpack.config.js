@@ -1,12 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 module.exports = {
     entry: {
-        app: 'src/index.js'
+        app: './src/index.js'
     },
     output: {
         filename: '[name].[hash:5].js',
-        path: 'dist',
-        publicPath: ''
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/public',
     },
     module: {
         rules: [
@@ -18,6 +19,17 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin(),
-    ]
+        new HtmlWebpackPlugin({
+            template: 'index.html'
+        })
+    ],
+    devServer: {
+        port: '8080',
+        host: 'localhost',
+        contentBase: path.join(__dirname, 'dist'),
+        publicPath: '/public',
+        historyApiFallback: {
+            index: '/public/index.html'
+        }
+    }
 };
