@@ -22,7 +22,18 @@ module.exports = {
                     'style-loader',
                     'css-loader',
                 ],
-                exclude: /node_modules/
+            },
+            {
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                use: [
+                  'file-loader',
+                  {
+                    loader: 'image-webpack-loader',
+                    options: {
+                      bypassOnDebug: true,
+                    },
+                  },
+                ],
             },
             {
                 test: /\.scss$/,
@@ -30,6 +41,15 @@ module.exports = {
                     'style-loader',
                     'css-loader',
                     'sass-loader'
+                ],
+                exclude: /node_modules/
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'less-loader'
                 ],
                 exclude: /node_modules/
             }
